@@ -68,9 +68,9 @@ The data in the penguins data set includes the following variables: species, isl
 The species of interest are Adelie, Chinstrap, and Gentoo. 
 The islands of interest are Biscoe, Dream, and Torgersen.
 
-This data set contains 344 observations, with 3444 rows and 8 columns. 
+This data set contains 344 observations, with `r nrow(penguins)` rows and `r ncol(penguins)` columns. 
 
-The mean flipper length is 200.9 mm. 
+The mean flipper length is `r mean(pull(penguins, flipper_length_mm), na.rm = TRUE)`. 
 
 ```{r  scatter_plot}
 ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + geom_point()
