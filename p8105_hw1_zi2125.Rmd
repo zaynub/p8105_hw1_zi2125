@@ -8,6 +8,7 @@ Solution to HW1.
 
 ```{r}
 library(tidyverse)
+library(palmerpenguins)
 ```
 
 ## Problem 1
@@ -33,20 +34,49 @@ mean(pull(prob1_df, char_vec))
 mean(pull(prob1_df, factor_vec))
 ```
 
-I can take the mean of numbers and logical but not character or factor. 
+I can take the mean of numbers and logical but not character or factor because they are not numerical values. 
 
-```{r try_numeric}
+```{r eval = FALSE}
 as.numeric(pull(prob1_df, samp))
 as.numeric(pull(prob1_df, samp_gt_0))
 as.numeric(pull(prob1_df, char_vec))
 as.numeric(pull(prob1_df, factor_vec))
 ```
 
-```{r eval = FALSE}
+The as.numeric function can be applied to numbers, logical, and factors but not character. The factor variable has levels which allows it to work with as.numeric. 
+
+```{r}
 as.numeric(pull(prob1_df, samp_gt_0))  * pull(prob1_df, samp)
 as.factor(pull(prob1_df, samp_gt_0))  * pull(prob1_df, samp)
 as.numeric(as.factor(pull(prob1_df, samp_gt_0))) * pull(prob1_df, samp)
 ```
 
+The result from trying to convert logical to factor and then multiplying the random sample by the result is not meaningful because is a factor does not have numerical value and cannot be multiplied. 
 
 ## Problem 2
+
+```{r}
+data("penguins", package = "palmerpenguins")
+summary(penguins)
+view(penguins)
+nrow(penguins)
+ncol(penguins)
+```
+
+The data in the penguins data set includes the following variables: species, island, bill length, bill depth, flipper length, body mass, sex, and year. 
+
+The species of interest are Adelie, Chinstrap, and Gentoo. 
+The islands of interest are Biscoe, Dream, and Torgersen.
+
+This data set contains 344 observations, with 3444 rows and 8 columns. 
+
+The mean flipper length is 200.9 mm. 
+
+```{r  scatter_plot}
+ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + geom_point()
+
+ggsave("penguins_scatter_plot.pdf")
+```
+
+
+
